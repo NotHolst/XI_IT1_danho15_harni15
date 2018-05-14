@@ -1,9 +1,11 @@
-import CounterExample from 'components/counter-example'
-import FetchData from 'components/fetch-data'
-import HomePage from 'components/home-page'
+import HomePage from 'components/about-page'
+import GalleryPage from 'components/gallery-page'
+import NewsletterPage from 'components/newsletter-page'
+import AdminPage from 'components/admin-page'
 
 export const routes = [
-  { name: 'home', path: '/', component: HomePage, display: 'Home', icon: 'home' },
-  { name: 'counter', path: '/counter', component: CounterExample, display: 'Counter', icon: 'graduation-cap' },
-  { name: 'fetch-data', path: '/fetch-data', component: FetchData, display: 'Fetch data', icon: 'list' }
+  { name: 'about', path: '/', component: HomePage, display: 'About', icon: 'home' },
+  { name: 'gallery', path: '/gallery', component: GalleryPage, display: 'Gallery', icon: 'home' },
+  { name: 'newsletter', path: '/newsletter', component: NewsletterPage, display: 'Newsletter', icon: 'home' },
+  { name: 'admin', path: '/admin', component: AdminPage, display: 'Admin', icon: 'home' },
 ]
