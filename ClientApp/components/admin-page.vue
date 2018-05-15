@@ -1,49 +1,115 @@
 <template>
-    <div>
-        <h1>Hello, world!</h1>
-        <p>Welcome to your new single-page application, built with: </p>
-        <ul>
-            <li><a href="https://get.asp.net/"><icon :icon="['fab', 'microsoft']"/> ASP.NET Core</a> and <a href="https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx">C#</a>                    for cross-platform server-side code</li>
-            <li><a href="https://vuejs.org/"><icon :icon="['fab', 'vuejs']"/> Vue.js</a> for client-side code</li>
-            <li><a href="https://webpack.js.org/">Webpack</a> for building and bundling client-side resources</li>
-            <li><a href="http://getbootstrap.com/">Bootstrap</a> for layout and styling</li>
-            <li><a href="http://jquery.com/">JQuery</a> for Bootstrap components</li>
-            <li><a href="https://fontawesome.com"><icon :icon="['fab', 'font-awesome']"/> Font Awesome</a> (Free) for the icons</li>
-            <li><a href="api/SampleData/WeatherForecasts">API sample data</a> from the dotnet controller</li>
-        </ul>
-        <p>To help you get started, we've also set up:</p>
-        <ul>
-            <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return
-                here.</li>
-            <li><strong>Webpack dev middleware</strong>. In development mode, there's no need to run the <code>webpack</code>                    build tool. Your client-side resources are dynamically built on demand. Updates are available as soon
-                as you modify any file.</li>
-            <li><strong>Hot module replacement</strong>. In development mode, you don't even need to reload the page after
-                making most changes. Within seconds of saving changes to files, your Vue.js app will be rebuilt and
-                a new instance injected is into the page.</li>
-            <li><strong>Code splitting and lazy loading</strong>. Vue.js components may optionally be bundled individually and
-                loaded on demand. For example, the code and template for 'Counter' is not loaded until you navigate to
-                it..</li>
-            <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled,
-                and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>
-        </ul>
+    <div class="w-100">
+        <div class="jumbotron jumbotron-fluid bg-primary text-white mb-0">
+            <div class="container">
+                <h1 class="display-4">Admin page</h1>
+            </div>
+        </div>
+        <div class="container">
+            <ul class="nav nav-pills" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#aboutcontent" role="tab" aria-controls="home" aria-selected="true">About page content</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#uploadimage" role="tab" aria-controls="profile" aria-selected="false">Upload image to gallery</a>
+                </li>
+            </ul>
 
-        <br><br>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="aboutcontent" role="tabpanel">
+                    <div class="row p-4">
+                        <div class="col text-center" contenteditable="true">
+                            <h2>Daniel Holst</h2>
+                            <br/>
+                            <p>
+                                <b>Age</b>:
+                                <br/>22
+                            </p>
+                            <p>
+                                <b>Height</b>:
+                                <br/>178cm
+                            </p>
+                            <p>
+                                <b>Field of study</b>:
+                                <br/>Software Engineering
+                            </p>
+                            <p>
+                                <b>Favourite dish</b>:
+                                <br/>Pretty much everything Italian
+                            </p>
+                            <p>
+                                <b>Favourite game</b>:
+                                <br/>Overwatch
+                            </p>
+                            <p>
+                                <b>Favourite programming language</b>:
+                                <br/>Emoji
+                            </p>
+                        </div>
+                        <div class="col text-center" contenteditable="true">
+                            <h2>Harald Dyg</h2>
+                            <br/>
+                            <p>
+                                <b>Age</b>:
+                                <br/>21
+                            </p>
+                            <p>
+                                <b>Height</b>:
+                                <br/>187cm
+                            </p>
+                            <p>
+                                <b>Field of study</b>:
+                                <br/>Software Engineering
+                            </p>
+                            <p>
+                                <b>Favourite dish</b>:
+                                <br/>"Bangers n' mash"
+                            </p>
+                            <p>
+                                <b>Favourite game</b>:
+                                <br/>Also Overwatch
+                            </p>
+                            <p>
+                                <b>Favourite programming language</b>:
+                                <br/>HTML
+                            </p>
+                        </div>
+                    </div>
+                    <a @click="resetChanges" class="btn btn-secondary w-100" href="#" role="button">Reset changes</a>
+                    <a @click="saveChanges" class="btn btn-primary w-100" href="#" role="button">Save changes</a>
+                </div>
+                <div class="tab-pane fade" id="uploadimage" role="tabpanel">
+                    <div class="d-flex justify-content-center p-4">
+                        <div class="form-group">
+                            <label for="image">Choose image to upload</label>
+                            <input type="file" class="form-control-file" name="image" id="image" placeholder="" aria-describedby="fileHelpId">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <h2>This Template brought to you by <a href="http://DevHelp.Online">DevHelp.Online</a></h2>
-        <strong>Consulting | Development | Training | Workshops</strong><br>
-        <p>Get your Team or Application up to speed by working with some of the leading industry experts in JavaScript & ASP.NET!</p>
+        </div>
 
-        <strong>Contact us today: </strong>
-        <p><a href="mailto:hello@devhelp.online"><icon icon="envelope"/> Hello@DevHelp.Online</a></p>
+
     </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {}
-  }
-}
+    export default {
+        data() {
+            return {
+                daniel: "",
+                harald: ""
+            }
+        },
+        mounted() {
+            var vm = this;
+            this.$http.get('/aboutcontent').then(data => {
+                vm.daniel = data.data[0];
+                vm.harald = data.data[1];
+            });
+        },
+    };
 </script>
 
 <style>

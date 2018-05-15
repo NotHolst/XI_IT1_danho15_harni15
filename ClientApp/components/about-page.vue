@@ -8,60 +8,10 @@
 
         <div class="row p-4">
             <div class="col text-center">
-                <h2>Daniel Holst</h2>
-                <br/>
-                <p>
-                    <b>Age</b>:
-                    <br/>22
-                </p>
-                <p>
-                    <b>Height</b>:
-                    <br/>178cm
-                </p>
-                <p>
-                    <b>Field of study</b>:
-                    <br/>Software Engineering
-                </p>
-                <p>
-                    <b>Favourite dish</b>:
-                    <br/>Pretty much everything Italian
-                </p>
-                <p>
-                    <b>Favourite game</b>:
-                    <br/>Overwatch
-                </p>
-                <p>
-                    <b>Favourite programming language</b>:
-                    <br/>Emoji
-                </p>
+                <span v-html="daniel"></span>
             </div>
             <div class="col text-center">
-                <h2>Harald Dyg</h2>
-                <br/>
-                <p>
-                    <b>Age</b>:
-                    <br/>21
-                </p>
-                <p>
-                    <b>Height</b>:
-                    <br/>187cm
-                </p>
-                <p>
-                    <b>Field of study</b>:
-                    <br/>Software Engineering
-                </p>
-                <p>
-                    <b>Favourite dish</b>:
-                    <br/>"Bangers n' mash"
-                </p>
-                <p>
-                    <b>Favourite game</b>:
-                    <br/>Also Overwatch
-                </p>
-                <p>
-                    <b>Favourite programming language</b>:
-                    <br/>HTML
-                </p>
+                <span v-html="harald"></span>
             </div>
         </div>
     </div>
@@ -71,12 +21,17 @@
     export default {
         data() {
             return {
-
+                daniel: "",
+                harald: ""
             }
         },
         mounted() {
-
-        }
+            var vm = this;
+            this.$http.get('/aboutcontent').then(data => {
+                vm.daniel = data.data[0];
+                vm.harald = data.data[1];
+            });
+        },
     }
 </script>
 

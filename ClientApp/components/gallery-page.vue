@@ -7,12 +7,13 @@
         </div>
 
         <div class="d-flex flex-wrap p-4 justify-content-center">
-            <img @click="activeImage = img" v-for="img in images" :src="img.thumbnail" alt="" class="img-thumbnail m-4">
+            <div @click="activeImage = img" :style="{ backgroundImage: 'url(' + img + ')' }"
+             v-for="img in images" alt="" class="img-thumbnail hover m-4"></div>
         </div>
 
         <transition name="fade">
             <div @click="activeImage = null" class="lightbox" v-if="activeImage != undefined">
-                <img :src="activeImage.image" alt="">
+                <img :src="activeImage" alt="" class="img-thumbnail">
             </div>
         </transition>
 
@@ -24,44 +25,32 @@
         data() {
             return {
                 activeImage: undefined,
-                images: [
-                    {
-                        thumbnail: 'http://via.placeholder.com/128x128?text=1',
-                        image: 'http://via.placeholder.com/1280x720?text=Full image'
-                    },
-                    {
-                        thumbnail: 'http://via.placeholder.com/128x128?text=2',
-                        image: 'http://via.placeholder.com/1280x720?text=Full image'
-                    },
-                    {
-                        thumbnail: 'http://via.placeholder.com/128x128?text=3',
-                        image: 'http://via.placeholder.com/1280x720?text=Full image'
-                    },
-                    {
-                        thumbnail: 'http://via.placeholder.com/128x128?text=4',
-                        image: 'http://via.placeholder.com/1280x720?text=Full image'
-                    },
-
-                ]
+                images: []
             }
         },
         mounted() {
-
+            var vm = this;
+            this.$http.get('/galleryimages').then(data => {
+                vm.images = data.data;
+            });
         },
-        watch: {
-            activeImage() {
-
-            }
-        }
     }
 </script>
 
 <style>
-    .img-thumbnail {
-        transition: all .1s ease-in-out;
+
+    .img-thumbnail.hover{
+        width: 128px;
+        height: 128px;
     }
 
-    .img-thumbnail:hover {
+    .hover {
+        transition: all .1s ease-in-out;
+        background-position: center;
+        background-size: 200%;
+    }
+
+    .hover:hover {
         transform: scale(1.1);
     }
 
