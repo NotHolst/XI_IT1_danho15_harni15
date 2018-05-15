@@ -30,7 +30,7 @@
         },
         mounted() {
             var vm = this;
-            this.$http.get('/galleryimages').then(data => {
+            this.$http.get('/api/Gallery').then(data => {
                 vm.images = data.data;
             });
         },

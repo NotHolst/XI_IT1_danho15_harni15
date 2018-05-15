@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using EFGetStarted.AspNetCore.NewDb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vue2Spa
 {
@@ -30,6 +32,8 @@ namespace Vue2Spa
         {
             // Add framework services.
             services.AddMvc();
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
 
         }
 

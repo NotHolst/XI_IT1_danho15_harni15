@@ -8,10 +8,10 @@
 
         <div class="row p-4">
             <div class="col text-center">
-                <span v-html="daniel"></span>
+                <span v-html="daniel.content"></span>
             </div>
             <div class="col text-center">
-                <span v-html="harald"></span>
+                <span v-html="harald.content"></span>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         },
         mounted() {
             var vm = this;
-            this.$http.get('/aboutcontent').then(data => {
+            this.$http.get('/api/CmsContent').then(data => {
                 vm.daniel = data.data[0];
                 vm.harald = data.data[1];
             });
